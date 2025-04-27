@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SecurePass Pro - Advanced Password Generator | Create Strong, Secure Passwords</title>
+    <meta name="description" content="Generate strong, secure passwords instantly with SecurePass Pro. Our advanced password generator creates unique passwords with customizable options for maximum security.">
+    <meta name="keywords" content="password generator, secure passwords, password security, password manager, strong passwords, password tool, online password generator">
+    <meta name="author" content="SecurePass Pro">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="SecurePass Pro - Advanced Password Generator">
+    <meta property="og:description" content="Generate strong, secure passwords instantly with our advanced password generator. Customize length, character types, and more.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://securepasspro.com">
+    <meta property="og:image" content="https://securepasspro.com/images/og-image.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="SecurePass Pro - Advanced Password Generator">
+    <meta name="twitter:description" content="Generate strong, secure passwords instantly with our advanced password generator. Customize length, character types, and more.">
+    <meta name="twitter:image" content="https://securepasspro.com/images/twitter-image.jpg">
+    <link rel="canonical" href="https://securepasspro.com">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        /* Pricing Toggle Styles */
+        .pricing-toggle-container {
+            display: flex;
+            justify-content: center;
+            margin: 2rem 0;
+        }
+
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+        }
+
+        .toggle-input {
+            display: none;
+        }
+
+        .toggle-label {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 30px;
+            background: #f5f7fa;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .toggle-option {
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .toggle-option.active {
+            color: #fff;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            height: calc(100% - 8px);
+            width: 120px;
+            background: #1a73e8;
+            border-radius: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .toggle-input:checked ~ .toggle-label .toggle-slider {
+            transform: translateX(calc(100% + 1rem));
+        }
+
+        .save-badge {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: #4caf50;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .toggle-label {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .toggle-slider {
+                width: calc(100% - 8px);
+                transform: translateY(0);
+            }
+
+            .toggle-input:checked ~ .toggle-label .toggle-slider {
+                transform: translateY(calc(100% + 0.5rem));
+            }
+        }
+
+        /* Add the discount banner style */
+        .discount-banner {
+            position: absolute;
+            top: 20px;
+            right: -35px;
+            background: #4caf50;
+            color: white;
+            padding: 5px 40px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            transform: rotate(45deg);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+        .pricing-card {
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Why Choose Us Section Styles */
+        .why-choose-us {
+            padding: 5rem 0;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        }
+
+        .security-features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .security-feature-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .security-feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 15px;
+            background: linear-gradient(45deg, transparent, rgba(26, 115, 232, 0.1), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+
+        .security-feature-card:hover::before {
+            transform: translateX(100%);
+        }
+
+        .security-feature-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1),
+                        0 0 20px rgba(26, 115, 232, 0.1);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: #1a73e8;
+            margin-bottom: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .security-feature-card:hover .feature-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .feature-details {
+            list-style: none;
+            padding: 0;
+            margin-top: 1.5rem;
+        }
+
+        .feature-details li {
+            margin: 0.5rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .security-feature-card:hover .feature-details li {
+            transform: translateX(5px);
+        }
+
+        .security-feature-card:hover .feature-details li:nth-child(1) {
+            transition-delay: 0.1s;
+        }
+
+        .security-feature-card:hover .feature-details li:nth-child(2) {
+            transition-delay: 0.2s;
+        }
+
+        .security-feature-card:hover .feature-details li:nth-child(3) {
+            transition-delay: 0.3s;
+        }
+
+        @keyframes cardGlow {
+            0% {
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            }
+            50% {
+                box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1),
+                            0 0 20px rgba(26, 115, 232, 0.2);
+            }
+            100% {
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            }
+        }
+
+        .security-feature-card {
+            animation: cardGlow 3s infinite;
+        }
+
+        .security-feature-card:hover {
+            animation: none;
+        }
+
+        .security-comparison {
+            margin: 4rem 0;
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .comparison-table {
+            overflow-x: auto;
+            margin-top: 2rem;
+        }
+
+        .comparison-table table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .comparison-table th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+        }
+
+        .comparison-table tr:hover {
+            background-color: #f8f9fa;
+        }
+
+        .comparison-table i.fa-check {
+            color: #4caf50;
+        }
+
+        .comparison-table i.fa-times {
+            color: #dc3545;
+        }
+
+        .security-badges {
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        .badges-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .badge {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .badge img {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+        }
+
+        .badge span {
+            font-weight: 500;
+            color: #495057;
+        }
+
+        @media (max-width: 768px) {
+            .security-features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .badges-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .comparison-table {
+                font-size: 0.9rem;
+            }
+        }
+
+        .security-highlight {
+            background: rgba(26, 115, 232, 0.1);
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            border-left: 4px solid #1a73e8;
+            font-weight: 500;
+        }
+
+        .security-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #4caf50;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            margin: 1rem 0;
+            font-weight: 500;
+            animation: badgePulse 2s infinite;
+        }
+
+        @keyframes badgePulse {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.4);
+            }
+            70% {
+                transform: scale(1.05);
+                box-shadow: 0 0 0 10px rgba(76, 175, 80, 0);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(76, 175, 80, 0);
+            }
+        }
+
+        .security-badge i {
+            font-size: 1.2rem;
+        }
+
+        .comparison-table tr:nth-child(2) {
+            background-color: rgba(26, 115, 232, 0.05);
+        }
+
+        .comparison-table tr:nth-child(2) td {
+            font-weight: 600;
+        }
+
+        .comparison-table tr:nth-child(2) td:nth-child(2) {
+            color: #4caf50;
+        }
+
+        /* Mobile Optimizations */
+        @media (max-width: 768px) {
+            .why-choose-us {
+                padding: 3rem 1rem;
+            }
+
+            .security-features-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+                padding: 0 1rem;
+            }
+
+            .security-feature-card {
+                padding: 1.5rem;
+                margin: 0.5rem;
+                transform: none;
+            }
+
+            .security-feature-card:hover {
+                transform: none;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            }
+
+            .security-feature-card::before {
+                display: none;
+            }
+
+            .feature-icon {
+                font-size: 2rem;
+            }
+
+            .security-highlight {
+                padding: 0.8rem;
+                font-size: 0.95rem;
+            }
+
+            .security-badge {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.9rem;
+                margin: 0.8rem 0;
+            }
+
+            .feature-details li {
+                font-size: 0.9rem;
+            }
+
+            .comparison-table {
+                margin: 2rem -1rem;
+                padding: 0 1rem;
+            }
+
+            .comparison-table table {
+                font-size: 0.85rem;
+            }
+
+            .comparison-table th,
+            .comparison-table td {
+                padding: 0.8rem;
+            }
+
+            .badges-container {
+                flex-direction: column;
+                align-items: center;
+                gap: 1.5rem;
+            }
+
+            .badge {
+                width: 100%;
+                max-width: 200px;
+            }
+
+            .badge img {
+                width: 60px;
+                height: 60px;
+            }
+
+            /* Touch-specific optimizations */
+            .security-feature-card {
+                -webkit-tap-highlight-color: transparent;
+                touch-action: manipulation;
+            }
+
+            .security-feature-card:active {
+                transform: scale(0.98);
+            }
+
+            /* Improve readability on small screens */
+            .section-title {
+                font-size: 1.8rem;
+                text-align: center;
+            }
+
+            .section-subtitle {
+                font-size: 1rem;
+                text-align: center;
+                padding: 0 1rem;
+            }
+
+            /* Optimize animations for mobile */
+            @media (prefers-reduced-motion: reduce) {
+                .security-feature-card,
+                .feature-icon,
+                .feature-details li,
+                .security-badge {
+                    animation: none;
+                    transition: none;
+                }
+            }
+
+            /* Landscape mode optimizations */
+            @media (max-height: 500px) and (orientation: landscape) {
+                .security-features-grid {
+                    grid-template-columns: repeat(2, 1fr);
+                }
+
+                .security-feature-card {
+                    padding: 1rem;
+                }
+
+                .feature-icon {
+                    font-size: 1.5rem;
+                    margin-bottom: 0.8rem;
+                }
+
+                .security-highlight {
+                    padding: 0.6rem;
+                    font-size: 0.85rem;
+                }
+            }
+        }
+
+        /* Small mobile devices */
+        @media (max-width: 375px) {
+            .security-feature-card {
+                padding: 1.2rem;
+            }
+
+            .feature-icon {
+                font-size: 1.8rem;
+            }
+
+            .security-highlight {
+                font-size: 0.9rem;
+            }
+
+            .security-badge {
+                font-size: 0.85rem;
+            }
+        }
+
+        /* Tablet optimizations */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .security-features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .security-feature-card {
+                padding: 1.8rem;
+            }
+        }
+
+        /* Add these new styles */
+        .logo, .hero-title {
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .logo::after, .hero-title::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: #1a73e8;
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover::after, .hero-title:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        .logo:active, .hero-title:active {
+            transform: scale(0.98);
+        }
+
+        @media (max-width: 768px) {
+            .logo, .hero-title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+    
+    <!-- Schema Markup for SEO -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "SecurePass Pro",
+        "applicationCategory": "SecurityApplication",
+        "operatingSystem": "Web-based",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD",
+            "availability": "https://schema.org/InStock"
+        },
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.8",
+            "ratingCount": "1250"
+        },
+        "description": "Advanced password generator for creating strong, secure passwords with customizable options.",
+        "featureList": [
+            "Customizable password length",
+            "Multiple character types",
+            "Password strength indicator",
+            "Copy to clipboard functionality",
+            "No password storage"
+        ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "SecurePass Pro",
+        "url": "https://securepasspro.com",
+        "logo": "https://securepasspro.com/images/logo.png",
+        "sameAs": [
+            "https://twitter.com/securepasspro",
+            "https://linkedin.com/company/securepasspro",
+            "https://github.com/securepasspro"
+        ],
+        "contactPoint": {
+            "@type": "ContactPoint",
+            "telephone": "+1-555-0123-4567",
+            "contactType": "customer service",
+            "availableLanguage": ["English"]
+        }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "How secure is your password generator?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Our password generator uses industry-standard cryptographic algorithms and follows NIST guidelines for password security. All generated passwords are created client-side and never stored on our servers."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Can I use this for my business?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes! We offer enterprise-grade solutions with team management features, audit logs, and compliance reporting. Our platform is trusted by Fortune 500 companies worldwide."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "What happens if I forget my master password?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "For security reasons, we cannot recover your master password. However, we provide a secure recovery process using your verified email and 2FA if enabled."
+                }
+            }
+        ]
+    }
+    </script>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <a href="#" class="logo" id="homeButton">SecurePass Pro</a>
+            <nav class="nav-links">
+                <a href="#about" class="nav-link">About</a>
+                <a href="#features" class="nav-link">Features</a>
+                <a href="#home" class="nav-link">Generator</a>
+                <a href="#pricing" class="nav-link">Pricing</a>
+                <a href="#why-choose-us" class="nav-link">Why Choose Us</a>
+                <a href="#testimonials" class="nav-link">Testimonials</a>
+            </nav>
+            <div class="auth-buttons">
+                <button class="login-btn">Log In</button>
+                <button class="signup-btn">Sign Up</button>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1><a href="#" class="hero-title" id="heroHomeButton" style="color: #4285f4;">SecurePass Pro</a></h1>
+                <p>Generate Secure Passwords Instantly</p>
+            </div>
+            <div class="hero-generator">
+                <div class="generator-container">
+                    <h2>Password Generator</h2>
+                    <div class="button-group">
+                        <button id="generate-btn" class="btn btn-primary">Generate</button>
+                        <button id="copy-btn" class="btn btn-secondary">Copy</button>
+                        <button id="clear-btn" class="btn btn-secondary">Clear</button>
+                    </div>
+                    <div class="password-display">
+                        <span id="password">Click to generate a password</span>
+                    </div>
+                    <div class="strength-indicator">
+                        <div class="strength-meter">
+                            <div class="strength-bar"></div>
+                        </div>
+                        <span id="strength-text">Weak</span>
+                    </div>
+                    <div class="password-options">
+                        <div class="length-options">
+                            <button class="length-option active" data-length="8">8</button>
+                            <button class="length-option premium" data-length="12" disabled>12 <span class="premium-badge">Premium</span></button>
+                            <button class="length-option premium" data-length="16" disabled>16 <span class="premium-badge">Premium</span></button>
+                            <button class="length-option premium" data-length="20" disabled>20 <span class="premium-badge">Premium</span></button>
+                            <button class="length-option premium" data-length="56" disabled>56 <span class="premium-badge">Enterprise/Annual</span></button>
+                            <button class="length-option premium" data-length="125" disabled>125 <span class="premium-badge">Enterprise/Annual</span></button>
+                            <button class="length-option premium" data-length="256" disabled>256 <span class="premium-badge">Enterprise/Annual</span></button>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="uppercase" checked>
+                            <label for="uppercase">Uppercase Letters</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="lowercase" checked>
+                            <label for="lowercase">Lowercase Letters</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="numbers" checked>
+                            <label for="numbers">Numbers</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="symbols" checked>
+                            <label for="symbols">Symbols</label>
+                        </div>
+                        <div class="premium-options">
+                            <div class="checkbox-group premium">
+                                <input type="checkbox" id="exclude-ambiguous" disabled>
+                                <label for="exclude-ambiguous">Exclude Ambiguous Characters</label>
+                                <span class="premium-badge">Premium</span>
+                            </div>
+                            <div class="checkbox-group premium">
+                                <input type="checkbox" id="include-spaces" disabled>
+                                <label for="include-spaces">Include Spaces</label>
+                                <span class="premium-badge">Premium</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section class="about-us" id="about">
+        <div class="container">
+            <h2 class="section-title">About Us</h2>
+            <p class="section-subtitle">Secure, reliable, and user-friendly password management for everyone</p>
+            
+            <div class="about-grid">
+                <div class="about-card">
+                    <i class="fas fa-shield-alt about-icon"></i>
+                    <h3>Our Mission</h3>
+                    <p>We're dedicated to making password security accessible and easy to use for everyone, from individuals to large enterprises.</p>
+                </div>
+                
+                <div class="about-card">
+                    <i class="fas fa-users about-icon"></i>
+                    <h3>Our Team</h3>
+                    <p>A passionate group of security experts and developers working together to create the best password management solutions.</p>
+                </div>
+                
+                <div class="about-card">
+                    <i class="fas fa-globe about-icon"></i>
+                    <h3>Our Impact</h3>
+                    <p>Helping thousands of users worldwide secure their digital lives with strong, unique passwords.</p>
+                </div>
+            </div>
+            
+            <div class="about-stats">
+                <div class="stat-item">
+                    <span class="stat-number">10K+</span>
+                    <span class="stat-label">Active Users</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">99.9%</span>
+                    <span class="stat-label">Uptime</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">50+</span>
+                    <span class="stat-label">Countries</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">24/7</span>
+                    <span class="stat-label">Support</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <h2 class="section-title">Features</h2>
+            <p class="section-subtitle">Secure and powerful features for your password management</p>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <i class="fas fa-lock feature-icon"></i>
+                    <h3>Advanced Encryption</h3>
+                    <p>We use industry-standard cryptographic algorithms to ensure your passwords are secure.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-users feature-icon"></i>
+                    <h3>Team Management</h3>
+                    <p>Manage passwords and access permissions for your team members efficiently.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-chart-bar feature-icon"></i>
+                    <h3>Password Analytics</h3>
+                    <p>Track password usage and identify weak passwords with our analytics dashboard.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-sync feature-icon"></i>
+                    <h3>Password Sync</h3>
+                    <p>Sync passwords across all your devices and platforms seamlessly.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-shield feature-icon"></i>
+                    <h3>Two-Factor Authentication</h3>
+                    <p>Add an extra layer of security with two-factor authentication.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-file-alt feature-icon"></i>
+                    <h3>Audit Logs</h3>
+                    <p>Track and audit password changes and access with our detailed audit logs.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="pricing-section">
+        <div class="container">
+            <h2 class="section-title" style="text-align:center;">Simple, transparent pricing</h2>
+            <p class="section-subtitle" style="text-align:center;">Choose the plan that's right for you</p>
+            <div class="pricing-grid">
+                <!-- Basic -->
+                <div class="pricing-card">
+                    <div class="card-badge">Basic</div>
+                    <div class="price">$20 <span class="period">/month</span></div>
+                    <div class="plan-description">Perfect for individuals who need basic password management.</div>
+                    <ul class="features-list">
+                        <li><i class="fas fa-check"></i> Generate up to 10 passwords</li>
+                        <li><i class="fas fa-check"></i> Save passwords securely</li>
+                        <li><i class="fas fa-check"></i> Basic password strength checker</li>
+                        <li><i class="fas fa-check"></i> Password history (last 10)</li>
+                        <li><i class="fas fa-check"></i> Email support</li>
+                    </ul>
+                    <button class="plan-btn plan-btn-bluegreen">Get Started</button>
+                </div>
+                <!-- Pro -->
+                <div class="pricing-card popular">
+                    <div class="card-badge">Most Popular</div>
+                    <div class="price">$50 <span class="period">/month</span></div>
+                    <div class="plan-description">Ideal for professionals who need advanced password management.</div>
+                    <ul class="features-list">
+                        <li><i class="fas fa-check"></i> Everything in Basic</li>
+                        <li><i class="fas fa-check"></i> Advanced password generation</li>
+                        <li><i class="fas fa-check"></i> Secure password sharing</li>
+                        <li><i class="fas fa-check"></i> Password breach checking</li>
+                        <li><i class="fas fa-check"></i> Two-factor authentication</li>
+                        <li><i class="fas fa-check"></i> Encrypted password vault</li>
+                        <li><i class="fas fa-check"></i> Password sharing with expiring links</li>
+                        <li><i class="fas fa-check"></i> Password strength analyzer with detailed reports</li>
+                        <li><i class="fas fa-check"></i> Priority support</li>
+                    </ul>
+                    <button class="plan-btn plan-btn-orange">Start Free Trial</button>
+                </div>
+                <!-- Enterprise -->
+                <div class="pricing-card enterprise">
+                    <div class="card-badge">Enterprise</div>
+                    <div class="price">$125 <span class="period">/month</span></div>
+                    <div class="plan-description">Perfect for teams and small businesses.</div>
+                    <ul class="features-list">
+                        <li><i class="fas fa-check"></i> Everything in Pro</li>
+                        <li><i class="fas fa-check"></i> Team password sharing</li>
+                        <li><i class="fas fa-check"></i> Role-based access control</li>
+                        <li><i class="fas fa-check"></i> Activity logging</li>
+                        <li><i class="fas fa-check"></i> Password rotation policies</li>
+                        <li><i class="fas fa-check"></i> API access for integration</li>
+                        <li><i class="fas fa-check"></i> Team management dashboard</li>
+                        <li><i class="fas fa-check"></i> Advanced security features</li>
+                        <li><i class="fas fa-check"></i> Dedicated support</li>
+                        <li><i class="fas fa-star" style="color: #fbc02d;"></i> Passwords up to 256 characters</li>
+                        <li><i class="fas fa-star" style="color: #fbc02d;"></i> Bulk password generation (up to 10,000)</li>
+                    </ul>
+                    <button class="plan-btn plan-btn-bluegreen">Get Started</button>
+                </div>
+                <!-- Annual -->
+                <div class="pricing-card annual">
+                    <div class="card-badge">Annual</div>
+                    <div class="discount-banner">27% OFF</div>
+                    <div class="price">$1095 <span class="period">/year</span></div>
+                    <div class="plan-description">One-time payment for all features with 27% discount.</div>
+                    <ul class="features-list">
+                        <li><i class="fas fa-check"></i> Everything in Pro</li>
+                        <li><i class="fas fa-check"></i> Team password sharing</li>
+                        <li><i class="fas fa-check"></i> Role-based access control</li>
+                        <li><i class="fas fa-check"></i> Activity logging</li>
+                        <li><i class="fas fa-check"></i> Password rotation policies</li>
+                        <li><i class="fas fa-check"></i> API access for integration</li>
+                        <li><i class="fas fa-check"></i> Team management dashboard</li>
+                        <li><i class="fas fa-check"></i> Advanced security features</li>
+                        <li><i class="fas fa-check"></i> Dedicated support</li>
+                        <li><i class="fas fa-star" style="color: #fbc02d;"></i> Passwords up to 256 characters</li>
+                        <li><i class="fas fa-star" style="color: #fbc02d;"></i> Bulk password generation (up to 10,000)</li>
+                        <li><i class="fas fa-star" style="color: #fbc02d;"></i> Priority bulk order processing</li>
+                        <li><i class="fas fa-star" style="color: #fbc02d;"></i> Custom bulk pricing available</li>
+                    </ul>
+                    <button class="plan-btn plan-btn-bluegreen">Get Annual Plan</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="why-choose-us" id="why-choose-us">
+        <div class="container">
+            <h2 class="section-title">Why Choose Us</h2>
+            <p class="section-subtitle">SecurePass Pro stands out with these key features</p>
+            
+            <div class="security-features-grid">
+                <div class="security-feature-card">
+                    <i class="fas fa-shield-alt feature-icon"></i>
+                    <h3>Advanced Encryption</h3>
+                    <p>We use industry-standard cryptographic algorithms to ensure your passwords are secure.</p>
+                </div>
+                <div class="security-feature-card">
+                    <i class="fas fa-users feature-icon"></i>
+                    <h3>Team Management</h3>
+                    <p>Manage passwords and access permissions for your team members efficiently.</p>
+                </div>
+                <div class="security-feature-card">
+                    <i class="fas fa-chart-bar feature-icon"></i>
+                    <h3>Password Analytics</h3>
+                    <p>Track password usage and identify weak passwords with our analytics dashboard.</p>
+                </div>
+                <div class="security-feature-card">
+                    <i class="fas fa-sync feature-icon"></i>
+                    <h3>Password Sync</h3>
+                    <p>Sync passwords across all your devices and platforms seamlessly.</p>
+                </div>
+                <div class="security-feature-card">
+                    <i class="fas fa-shield feature-icon"></i>
+                    <h3>Two-Factor Authentication</h3>
+                    <p>Add an extra layer of security with two-factor authentication.</p>
+                </div>
+                <div class="security-feature-card">
+                    <i class="fas fa-file-alt feature-icon"></i>
+                    <h3>Audit Logs</h3>
+                    <p>Track and audit password changes and access with our detailed audit logs.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>SecurePass Pro</h3>
+                <p>Advanced password generator for creating strong, secure passwords with customizable options.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#pricing">Pricing</a></li>
+                    <li><a href="#testimonials">Testimonials</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Newsletter</h3>
+                <p>Subscribe to our newsletter for updates and security tips.</p>
+                <form class="newsletter-form">
+                    <div class="input-group">
+                        <input type="email" placeholder="Enter your email">
+                        <button type="submit" class="subscribe-btn">Subscribe</button>
+                    </div>
+                    <p class="privacy-note">We respect your privacy. Unsubscribe at any time.</p>
+                </form>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 SecurePass Pro. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html> 
